@@ -5,6 +5,8 @@ from app.scraper import scrape_subway_outlets,add_outlets_to_database
 from app.geocode import geocode_all_outlets
 from app.chat_query import write_json_file,perform_llm_query
 from flask_cors import CORS
+from flask import send_from_directory
+import os
 
 
 # Initialize Flask application instance
@@ -131,8 +133,9 @@ def llm_query():
     except Exception as e:
         return jsonify({'message': f"Failed to perform LLM query: {str(e)}"}), 500
 
-
-
+@app.route('/favicon.ico') 
+def favicon(): 
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == '__main__':
     with app.app_context():
@@ -162,4 +165,4 @@ if __name__ == '__main__':
         #print(geocoded_outlets)
 
     # Only run the Flask application if executed directly, not as part of the Flask server
-    app.run(debug=True, use_reloader=False)
+    app.run(use_reloader=False)
