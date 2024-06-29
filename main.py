@@ -24,7 +24,7 @@ db.init_app(app)
 # Register the blueprint containing API routes
 # app.register_blueprint(api_bp)
 
-# Function to add dummy data 
+# Function to add dummy data (to test)
 def add_dummydata():
      # Ensure the database tables are created
     with app.app_context():
@@ -131,9 +131,10 @@ def llm_query():
         return jsonify({'response': response}), 200
     
     except Exception as e:
+        # print({'message': f"Failed to perform LLM query: {str(e)}"})
         return jsonify({'message': f"Failed to perform LLM query: {str(e)}"}), 500
 
-@app.route('/favicon.ico') 
+@app.route('/favicon.ico') #added cause vercel requires this
 def favicon(): 
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 

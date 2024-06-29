@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 # Initialize SQLAlchemy instance
 db = SQLAlchemy()
 
-# Define Flask application factory function
 def create_app():
     app = Flask(__name__)
 
@@ -17,7 +16,7 @@ def create_app():
 
     return app
 
-# Define your database models
+# Define database models
 class Outlet(db.Model):
     __tablename__ = 'outlets'
 
@@ -35,7 +34,7 @@ class OpeningHours(db.Model):
     __tablename__ = 'opening_hours'
 
     id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String)  # Store opening hours as formatted text
+    description = db.Column(db.String)  # Store opening hours as text
     outlet_id = db.Column(db.Integer, db.ForeignKey('outlets.id'))
 
     # Define relationship back to Outlet
